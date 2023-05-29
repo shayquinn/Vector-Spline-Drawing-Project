@@ -8,8 +8,7 @@ package drawingProject;
 import java.awt.event.MouseEvent;
 
 /**
- *
- * @author shays
+ * The Context class creates a pop-up menu when a mouse event occurs.
  */
 public class Context {
     public void doPop(MouseEvent e) {

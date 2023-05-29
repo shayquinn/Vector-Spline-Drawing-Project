@@ -11,19 +11,41 @@ import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The `Utility` class contains various methods for performing mathematical calculations and creating
+ * Java 2D shapes, such as cubic Bezier curves and elliptical paths.
+ */
 public class Utility {
 
     private int screenW, screenH;
 
+    // The `public Utility(int screenW, int screenH)` is a constructor for the `Utility` class that
+    // takes in two integer parameters `screenW` and `screenH`. It initializes the `screenW` and
+    // `screenH` instance variables of the `Utility` class with the values passed in as parameters.
+    // This constructor is used to create an instance of the `Utility` class with the specified screen
+    // width and height.
     public Utility(int screenW, int screenH) {
         this.screenW = screenW;
         this.screenH = screenH;
     }
 
+    // The `public CubicCurve2D.Float drawCubicCurve(Point xy1, Point c1, Point c2, Point xy2)` method
+    // takes in four `Point` objects as parameters: `xy1`, `c1`, `c2`, and `xy2`. It then creates and
+    // returns a new `CubicCurve2D.Float` object that represents a cubic curve with the specified
+    // control points and end points. The `xy1` and `xy2` parameters represent the start and end points
+    // of the curve, while `c1` and `c2` represent the control points that determine the shape of the
+    // curve. The `CubicCurve2D.Float` class is a Java 2D shape that represents a cubic Bezier curve
+    // defined by two anchor points and two control points.
     public CubicCurve2D.Float drawCubicCurve(Point xy1, Point c1, Point c2, Point xy2) {
         return new CubicCurve2D.Float(xy1.x, xy1.y, c1.x, c1.y, c2.x, c2.y, xy2.x, xy2.y);
     }//end drawCubicCurve
 
+    // The `public double[] convert(double ang, double x, double y, double cx, double cy)` method takes
+    // in five double parameters: `ang`, `x`, `y`, `cx`, and `cy`. It then performs a mathematical
+    // transformation on the `x` and `y` coordinates based on the angle `ang` and the center point `cx`
+    // and `cy`. The method returns a double array with two elements, representing the new `x` and `y`
+    // coordinates after the transformation. This method is used to rotate a point around a center
+    // point by a specified angle.
     public double[] convert(double ang, double x, double y, double cx, double cy) {
         return new double[]{
             cx + Math.cos(ang * Math.PI / 180) * (x - cx) - Math.sin(ang * Math.PI / 180) * (y - cy),
@@ -31,6 +53,11 @@ public class Utility {
         };
     }//end convert
 
+    // The `public Point convert(int ang, Point xy, Point cxy)` method takes in three parameters: an
+    // integer `ang`, and two `Point` objects `xy` and `cxy`. It performs a mathematical transformation
+    // on the `xy` point based on the angle `ang` and the center point `cxy`. The method returns a new
+    // `Point` object representing the new coordinates of the transformed point. This method is used to
+    // rotate a point around a center point by a specified angle.
     public Point convert(int ang, Point xy, Point cxy) {
         return new Point(
                 cxy.x + (int) Math.cos(ang * Math.PI / 180) * (xy.x - cxy.x) - (int) Math.sin(ang * Math.PI / 180) * (xy.y - cxy.y),
@@ -38,10 +65,20 @@ public class Utility {
 
     }//end convert
 
+    // The `public int findDistance(Point po1, Point po2)` method takes in two `Point` objects as
+    // parameters: `po1` and `po2`. It then calculates and returns the distance between these two
+    // points using the distance formula. The method first calculates the difference between the `x`
+    // coordinates and the `y` coordinates of the two points, squares these differences, adds them
+    // together, and then takes the square root of the result to get the distance between the two
+    // points.
     public int findDistance(Point po1, Point po2) {
         return (int) Math.round(Math.sqrt(((po1.x - po2.x) * (po1.x - po2.x)) + ((po1.y - po2.y) * (po1.y - po2.y))));
     }//end findDistance
 
+    // The `public double findAngle(Point xy, Point cxy, int ty)` method takes in three parameters: two
+    // `Point` objects `xy` and `cxy`, and an integer `ty`. It calculates and returns the angle between
+    // the line connecting the two points and the horizontal axis, in either radians or degrees
+    // depending on the value of `ty`.
     public double findAngle(Point xy, Point cxy, int ty) {
         double ang = 0;
         if (ty == 0) {
@@ -53,6 +90,14 @@ public class Utility {
         return ang;
     }//end findAngle
 
+    // The `evenPoints` method takes in an array of `Point` objects `pa` as a parameter. It then
+    // calculates and returns a new array of two `Point` objects representing the start and end points
+    // of a cubic curve that passes through the middle point of the input array. The method first
+    // calculates the middle point of the input array using a `Spline` object. It then calculates the
+    // distance between the middle point and the two end points of the input array, and selects the end
+    // point that is closest to the middle point. Finally, it uses the `convert` method to rotate the
+    // selected end point by 180 degrees around the middle point, and returns the middle point and the
+    // rotated end point as the two points of the output array.
     public Point[] evenPoints(Point[] pa) {
         Point blue = pa[1];
         Point[] rpa = new Point[2];
@@ -73,10 +118,24 @@ public class Utility {
         return rpa;
     }//end evenPoints
 
+    // The `public Point findAwayPoint(double d, double a, Point ppoint)` method takes in three
+    // parameters: a double `d`, a double `a`, and a `Point` object `ppoint`. It calculates and returns
+    // a new `Point` object that represents a point that is a distance `d` away from the `ppoint` point
+    // at an angle `a` from the horizontal axis. The method uses trigonometry to calculate the `x` and
+    // `y` coordinates of the new point based on the distance and angle parameters. This method is used
+    // to find a point that is a certain distance away from a given point in a specified direction.
     public Point findAwayPoint(double d, double a, Point ppoint) {
         return new Point((int) ((d * Math.cos(a)) + ppoint.x), (int) ((d * Math.sin(a)) + ppoint.y));
     }//end findAwayPoint
 
+    // The `public GeneralPath ellipsepath(Point sp, Point ep)` method takes in two `Point` objects as
+    // parameters: `sp` and `ep`. It then creates and returns a new `GeneralPath` object that
+    // represents an elliptical path defined by the two points. The method first calculates the width
+    // and height of the ellipse based on the difference between the `x` and `y` coordinates of the two
+    // points. It then calculates the control point offsets and end points of the curve using a
+    // mathematical formula, and uses the `moveTo` and `curveTo` methods of the `GeneralPath` class to
+    // create a cubic Bezier curve that approximates the elliptical shape. The resulting `GeneralPath`
+    // object can be used to draw or fill the elliptical shape on a Java 2D graphics context.
     public GeneralPath ellipsepath(Point sp, Point ep) {
         GeneralPath p = new GeneralPath(GeneralPath.WIND_NON_ZERO);
         int w = (screenW - sp.x) - (screenW - ep.x);
@@ -98,6 +157,15 @@ public class Utility {
 
     }//end ellipsepath
 
+    // The `ellipPointObj` method takes in two `PointObj` objects as parameters: `sp` and `ep`. It then
+    // calculates and returns a list of four `PointObj` objects representing the control points of a
+    // cubic Bezier curve that approximates an elliptical shape defined by the two input points. The
+    // method first calculates the width and height of the ellipse based on the difference between the
+    // `x` and `y` coordinates of the two points. It then calculates the control point offsets and end
+    // points of the curve using a mathematical formula, and creates four `PointObj` objects
+    // representing the control points for each of the four segments of the curve. The resulting list
+    // of `PointObj` objects can be used to draw or fill the elliptical shape on a Java 2D graphics
+    // context.
     public List<PointObj> ellipPointObj(PointObj sp, PointObj ep) {
         List<PointObj> p = new ArrayList<>();
 
@@ -151,4 +219,4 @@ public class Utility {
         return p;
 
     }//end ellipsepath
-}
+}//end class

@@ -8,6 +8,10 @@ package drawingProject;
 import java.awt.Color;
 import java.awt.Point;
 
+/**
+ * The PointObj class defines an object that contains three points, their radii, colors, and other
+ * properties.
+ */
 class PointObj {
 
     private Point xy, c1, c2;

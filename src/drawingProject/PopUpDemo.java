@@ -4,6 +4,9 @@ package drawingProject;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+/**
+ * The PopUpDemo class creates a JPopupMenu with four menu items.
+ */
 class PopUpDemo extends JPopupMenu {
     JMenuItem o1, o2, o3, o4;
     public PopUpDemo() {
@@ -17,4 +20,4 @@ class PopUpDemo extends JPopupMenu {
         add(o3);
         add(o4);
     }
-}
+}//end PopUpDemo

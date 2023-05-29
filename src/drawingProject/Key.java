@@ -4,6 +4,10 @@ package drawingProject;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * The Key class implements the KeyListener interface and handles key events by printing the key code
+ * and performing different actions based on the key pressed.
+ */
 public class Key implements KeyListener {
 
     @Override
